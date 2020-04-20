@@ -1,0 +1,17 @@
+#!/bin/bash
+
+rm -rf /etc/skel/.config/gtk-3.0/settings.ini
+
+rm -rf /etc/skel/.config/lxqt/lxqt.conf
+rm -rf /etc/skel/.config/lxqt/lxqt-config-appearance.conf
+rm -rf /etc/skel/.config/lxqt/lxqt-powermanagement.conf
+rm -rf /etc/skel/.config/lxqt/panel.conf
+rm -rf /etc/skel/.config/lxqt/session.conf
+
+rm -rf /etc/skel/.config/openbox/lxqt-rc.xml
+
+rm -rf /etc/skel/.config/pcmanfm-qt/lxqt/settings.conf
+
+rm -rf /etc/skel/.config/qterminal.org/qterminal.ini
+
+rm -rf /etc/skel/.gtkrc-2.0

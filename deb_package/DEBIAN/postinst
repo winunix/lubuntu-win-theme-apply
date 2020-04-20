@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cp -rf /tmp/lubuntu-win-theme-apply/.config/ /etc/skel/
+cp -rf /tmp/lubuntu-win-theme-apply/.gtkrc-2.0 /etc/skel/
