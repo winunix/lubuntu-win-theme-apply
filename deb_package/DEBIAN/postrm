@@ -15,3 +15,5 @@ rm -rf /etc/skel/.config/pcmanfm-qt/lxqt/settings.conf
 rm -rf /etc/skel/.config/qterminal.org/qterminal.ini
 
 rm -rf /etc/skel/.gtkrc-2.0
+
+rm -rf /etc/skel/.face.icon
