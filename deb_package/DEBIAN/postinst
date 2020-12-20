@@ -3,3 +3,16 @@
 cp -rf /tmp/lubuntu-win-theme-apply/.config/ /etc/skel/
 cp -rf /tmp/lubuntu-win-theme-apply/.gtkrc-2.0 /etc/skel/
 cp -rf /tmp/lubuntu-win-theme-apply/.face.icon /etc/skel/
+
+cat /etc/passwd | grep '/home/' | grep -v 'cups\|syslog\|mysql\|mongodb' | \
+cut -d':' -f1 > /tmp/homes.list
+
+while read USUARIO; do
+    if [ -d /home/$USUARIO ]; then
+        ORIG="/tmp/lubuntu-win-theme-apply"
+        DEST="/home/$USUARIO/"
+        runuser -l $USUARIO -c "cp -rf $ORIG/.config/ $DEST"
+        runuser -l $USUARIO -c "cp -rf $ORIG/.gtkrc-2.0 $DEST"
+        runuser -l $USUARIO -c "cp -rf $ORIG/.face.icon $DEST"
+    fi
+done < /tmp/homes.list
