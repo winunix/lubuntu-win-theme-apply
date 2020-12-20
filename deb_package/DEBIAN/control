@@ -5,7 +5,7 @@ Maintainer: crasheddie <crash.eddie123@gmail.com>
 Section: utils
 Architecture: all
 Priority: optional
-Depends: qt5-style-plugin-gtk2
+Depends: qt5-style-plugin-gtk2, lubuntu-win10-theme, lubuntu-win8-cursor-theme, lubuntu-win10-icon-theme
 Homepage: https://github.com/winunix/lubuntu-win-theme-apply
 Description: apply windows-like theme on lubuntu focal.
  Apply windows-like theme to Lubuntu Focal Fossa.
