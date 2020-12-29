@@ -16,4 +16,16 @@ rm -rf /etc/skel/.config/qterminal.org/qterminal.ini
 
 rm -rf /etc/skel/.gtkrc-2.0
 
-rm -rf /etc/skel/.face.icon
+cd /usr/share/lubuntu/wallpapers/
+if [ -f 2004-lubuntu-wire-humming.png ] && [ -f lubuntu-original-wallpaper.png ]; then
+	mv lubuntu-original-wallpaper.png 2004-lubuntu-wire-humming.png
+	rm -rf /home/*/.cache
+fi
+
+if [ -f /usr/share/sddm/themes/win10/theme.conf ]; then
+	cat <<EOF >/usr/share/sddm/themes/win10/theme.conf
+[General]
+background=/usr/share/lubuntu/wallpapers/win10_login.png
+
+EOF
+fi

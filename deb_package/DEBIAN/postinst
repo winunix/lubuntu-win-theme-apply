@@ -1,18 +1,37 @@
 #!/bin/bash
 
-cp -rf /tmp/lubuntu-win-theme-apply/.config/ /etc/skel/
-cp -rf /tmp/lubuntu-win-theme-apply/.gtkrc-2.0 /etc/skel/
-cp -rf /tmp/lubuntu-win-theme-apply/.face.icon /etc/skel/
+# Get Names of users
+cat /etc/passwd | grep '/home/' | grep -v 'cups\|syslog\|mysql\|mongodb' |
+    cut -d':' -f1 >/tmp/homes.list
 
-cat /etc/passwd | grep '/home/' | grep -v 'cups\|syslog\|mysql\|mongodb' | \
-cut -d':' -f1 > /tmp/homes.list
+runByUsers() {
+    # $1 is default folder of user
+    # $2 is name of user
+    cd $1
+    ORIG="/tmp/lubuntu-win-theme-apply"
+    runuser -l $2 -c "cp -rf $ORIG/.config/ $1"
+    runuser -l $2 -c "cp -rf $ORIG/.gtkrc-2.0 $1"
+}
 
 while read USUARIO; do
     if [ -d /home/$USUARIO ]; then
-        ORIG="/tmp/lubuntu-win-theme-apply"
-        DEST="/home/$USUARIO/"
-        runuser -l $USUARIO -c "cp -rf $ORIG/.config/ $DEST"
-        runuser -l $USUARIO -c "cp -rf $ORIG/.gtkrc-2.0 $DEST"
-        runuser -l $USUARIO -c "cp -rf $ORIG/.face.icon $DEST"
+        runByUsers "/home/$USUARIO" "$USUARIO"
+        runuser -l $USUARIO -c "rm -rf /home/$USUARIO/.cache/"
     fi
-done < /tmp/homes.list
+done </tmp/homes.list
+runByUsers "/etc/skel" "root"
+
+cd /usr/share/lubuntu/wallpapers
+if [ -f 2004-lubuntu-wire-humming.png ]; then
+    mv 2004-lubuntu-wire-humming.png lubuntu-original-wallpaper.png
+    mv wx_wallpaper.png 2004-lubuntu-wire-humming.png
+    rm -rf /home/*/.cache
+fi
+
+if [ -f /usr/share/sddm/themes/win10/theme.conf ]; then
+    cat <<EOF >/usr/share/sddm/themes/win10/theme.conf
+[General]
+background=/usr/share/lubuntu/wallpapers/wx_login.png
+
+EOF
+fi
