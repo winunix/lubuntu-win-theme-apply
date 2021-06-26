@@ -13,10 +13,20 @@ runByUsers() {
     runuser -l $2 -c "cp -rf $ORIG/.gtkrc-2.0 $1"
 }
 
+#CUSER="$(w -h| grep ':0' | cut -d' ' -f1)"
+#CUSERID="$(runuser -l $CUSER -c 'id -u')"
+
+
 while read USUARIO; do
     if [ -d /home/$USUARIO ]; then
         runByUsers "/home/$USUARIO" "$USUARIO"
         runuser -l $USUARIO -c "rm -rf /home/$USUARIO/.cache/"
+        #if [ -f /usr/bin/lxqt-panel ]; then
+        #	if [ "$CURRENTUSER" == "$USUARIO" ]; then
+        #		runuser -l $USUARIO -c "killall lxqt-panel"
+        #		runuser -l $USUARIO -c "lxqt-panel &"
+        #	fi
+        #fi
     fi
 done </tmp/homes.list
 runByUsers "/etc/skel" "root"
