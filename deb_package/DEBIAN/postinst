@@ -20,6 +20,7 @@ while read USUARIO; do
     fi
 done </tmp/homes.list
 runByUsers "/etc/skel" "root"
+runByUsers "/root" "root"
 
 cd /usr/share/lubuntu/wallpapers
 if [ -f 2004-lubuntu-wire-humming.png ]; then
